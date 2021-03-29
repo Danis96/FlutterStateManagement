@@ -5,7 +5,7 @@ class SlideAnimationTween extends PageRouteBuilder<dynamic> {
       : super(
     pageBuilder: (BuildContext context, Animation<double> animation,
         Animation<double> secAnimation) {
-      return widget;
+      return widget!;
     },
     transitionDuration: const Duration(milliseconds: 500),
     transitionsBuilder: (BuildContext context,
@@ -25,5 +25,5 @@ class SlideAnimationTween extends PageRouteBuilder<dynamic> {
       );
     },
   );
-  final Widget widget;
+  final Widget? widget;
 }

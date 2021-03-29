@@ -8,8 +8,8 @@ class ApiResponse<T> {
   ApiResponse.error(this.message) : status = Status.ERROR;
 
   Status status;
-  T data;
-  String message;
+  T? data;
+  String? message;
 
   @override
   String toString() {

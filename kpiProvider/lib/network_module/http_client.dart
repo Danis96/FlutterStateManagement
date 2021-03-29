@@ -13,14 +13,15 @@ class HTTPClient {
   final String baseURL = 'https://jsonblob.com/api/jsonBlob/';
 
   Future<dynamic> fetchData(String url, Map<String, String> headersType,
-      {Map<String, String> params}) async {
+      {Map<String, String>? params}) async {
     dynamic responseJson;
 
     final String uri =
         baseURL + url + ((params != null) ? queryParameters(params) : '');
+    final Uri myUri = Uri.parse(uri);
     print(uri);
     try {
-      final http.Response response = await http.get(uri, headers: headersType);
+      final http.Response response = await http.get(myUri, headers: headersType);
       print(response.body.toString());
       responseJson = _returnResponse(response);
     } on SocketException {

@@ -16,3 +16,4 @@ By using provider instead of manually writing InheritedWidget, you get:
 -devtools friendly
 -a common way to consume these InheritedWidgets (See Provider.of/Consumer/Selector)
 -increased scalability for classes with a listening mechanism that grows exponentially in complexity (such as ChangeNotifier, which is O(N²) for dispatching notifications).
+

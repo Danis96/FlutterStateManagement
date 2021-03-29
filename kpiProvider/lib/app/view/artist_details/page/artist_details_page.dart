@@ -14,15 +14,15 @@ class ArtistDetailPage extends StatelessWidget {
     this.artistModel,
   });
 
-  final String albumUrl;
-  final ArtistModel artistModel;
+  final String? albumUrl;
+  final ArtistModel? artistModel;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ArtistProvider>(
       create: (BuildContext context) => ArtistProvider(),
       child: ArtistDetailsChild(
-        albumUrl: albumUrl,
+        albumUrl: albumUrl!,
         artistModel: artistModel,
       ),
     );
@@ -31,12 +31,12 @@ class ArtistDetailPage extends StatelessWidget {
 
 class ArtistDetailsChild extends StatefulWidget {
   const ArtistDetailsChild({
-    this.albumUrl,
+    required this.albumUrl,
     this.artistModel,
   });
 
   final String albumUrl;
-  final ArtistModel artistModel;
+  final ArtistModel? artistModel;
 
   @override
   _ArtistDetailsChildState createState() => _ArtistDetailsChildState();
@@ -70,8 +70,8 @@ class _ArtistDetailsChildState extends State<ArtistDetailsChild> {
               height: 10,
             ),
             artistDetailsHeadline(
-              image: widget.artistModel.aImage,
-              name: widget.artistModel.aName,
+              image: widget.artistModel!.aImage,
+              name: widget.artistModel!.aName,
               albumNumber: albumModel.length ?? 0,
               context: context,
             ),

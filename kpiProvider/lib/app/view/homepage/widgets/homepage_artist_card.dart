@@ -7,10 +7,10 @@ enum CardType {
 }
 
 Widget artistCard({
-  @required String image,
-  @required String name,
-  @required String description,
-  @required BuildContext context,
+  required String image,
+  required String name,
+  required String description,
+  required BuildContext context,
   CardType type = CardType.artist,
   int numberOfSongs = 0,
 }) {

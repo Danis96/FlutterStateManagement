@@ -16,21 +16,21 @@ class AppException implements Exception {
 }
 
 class BadRequestValidationException implements Exception {
-  BadRequestValidationException.fromJson(dynamic json, {int code}) {
+  BadRequestValidationException.fromJson(dynamic json, {int? code}) {
     print(json);
     statusCode = code;
-    detail = json['detail'] as String ?? '';
-    details = json['details'] as String ?? '';
+    detail = json['detail'] as String? ?? '';
+    details = json['details'] as String? ?? '';
     // ignore: always_specify_types
     errors = {};
 
     if (json['errors'] != null && json['errors'] is Map<String, dynamic>) {
       final Map<String, List<String>> parsedErrors = <String, List<String>>{};
-      final Map<String, dynamic> jsonError =
-          json['errors'] as Map<String, dynamic>;
+      final Map<String, dynamic>? jsonError =
+          json['errors'] as Map<String, dynamic>?;
 
       if (jsonError is List<dynamic>) {
-        jsonError.forEach((String key, dynamic value) {
+        jsonError!.forEach((String key, dynamic value) {
           // ignore: always_specify_types
           final List<String> lErrors = (value as List).cast<String>();
           if (lErrors != null) {
@@ -63,7 +63,7 @@ class BadRequestValidationException implements Exception {
       errors = parsedErrors;
     }
 
-    if (detail == null || detail.isEmpty) {
+    if (detail == null || detail!.isEmpty) {
       try {
         String key = '';
         json.keys.forEach((dynamic element) {
@@ -72,7 +72,7 @@ class BadRequestValidationException implements Exception {
         });
         if (json.keys.isNotEmpty as bool) {
           if (json[key].isNotEmpty as bool) {
-            detail = json[key][0] as String;
+            detail = json[key][0] as String?;
           }
         }
       } catch (e) {
@@ -83,20 +83,20 @@ class BadRequestValidationException implements Exception {
     print(detail);
   }
 
-  String detail;
-  String details;
-  int statusCode;
-  Map<String, List<String>> errors;
-  Map<String, dynamic> mapError;
+  String? detail;
+  String? details;
+  int? statusCode;
+  Map<String, List<String>>? errors;
+  Map<String, dynamic>? mapError;
 
   @override
   String toString() {
-    return detail;
+    return detail!;
   }
 }
 
 class InternetException extends AppException {
-  InternetException([String message])
+  InternetException([String? message])
       : super(message, 'Error during communication');
 
   @override
@@ -106,7 +106,7 @@ class InternetException extends AppException {
 }
 
 class FetchDataException extends AppException {
-  FetchDataException([String message])
+  FetchDataException([String? message])
       : super(message, 'Error during communication');
 }
 

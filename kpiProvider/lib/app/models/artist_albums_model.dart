@@ -18,15 +18,15 @@ class ArtistAlbumModel {
   Map<String, dynamic> toJson() => _$ArtistAlbumModelToJson(this);
 
   @JsonKey(name: 'name', defaultValue: '')
-  String name;
+  String? name;
   @JsonKey(name: 'published', defaultValue: 0)
-  int published;
+  int? published;
   @JsonKey(name: 'cover', defaultValue: '')
-  String coverImage;
+  String? coverImage;
   @JsonKey(name: 'songs_num', defaultValue: 0)
-  int songsNumber;
+  int? songsNumber;
   @JsonKey(name: 'songs', defaultValue: '')
-  String songs;
+  String? songs;
 
   String get albumName => name ?? '';
 

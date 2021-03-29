@@ -8,21 +8,21 @@ class ArtistProvider extends ChangeNotifier {
     _artistRepository = ArtistRepository();
   }
 
-  ArtistRepository _artistRepository;
+  late ArtistRepository _artistRepository;
 
-  List<ArtistModel> _artists;
+  List<ArtistModel>? _artists;
 
   List<ArtistModel> get artists => _artists ?? <ArtistModel>[];
 
-  List<ArtistAlbumModel> _artistAlbums;
+  List<ArtistAlbumModel>? _artistAlbums;
 
   List<ArtistAlbumModel> get artistAlbums =>
       _artistAlbums ?? <ArtistAlbumModel>[];
 
-  String _albumUrl;
-  String get albumUrl => _albumUrl;
+  String? _albumUrl;
+  String? get albumUrl => _albumUrl;
 
-  Future<String> fetchArtists() async {
+  Future<String?> fetchArtists() async {
     _artists = <ArtistModel>[];
     try {
       _artists = await _artistRepository.fetchArtists();
@@ -34,7 +34,7 @@ class ArtistProvider extends ChangeNotifier {
     }
   }
 
-  Future<String> fetchArtistAlbums(String albumUrl) async {
+  Future<String?> fetchArtistAlbums(String albumUrl) async {
     _artistAlbums = <ArtistAlbumModel>[];
     try {
       _artistAlbums = await _artistRepository.fetchArtistAlbums(albumUrl);

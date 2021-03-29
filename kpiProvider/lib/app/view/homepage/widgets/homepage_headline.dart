@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 Widget homePageHeadline({
-  String title,
-  String subtitle,
-  BuildContext context,
+  required String title,
+  required String subtitle,
+  required BuildContext context,
 }) {
   return Container(
     child: Column(
