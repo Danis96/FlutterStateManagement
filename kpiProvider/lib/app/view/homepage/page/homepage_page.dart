@@ -9,37 +9,37 @@ import 'package:kpiProvider/app/view/homepage/widgets/homepage_headline.dart';
 import 'package:kpiProvider/common_widgets/loader.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ArtistProvider>(
       create: (BuildContext context) => ArtistProvider(),
-      child: HomePageChild(),
+      child: HomePage(),
     );
   }
 }
 
-class HomePageChild extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _HomePageChildState createState() => _HomePageChildState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageChildState extends State<HomePageChild> {
+class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     Future<void>(() {
       loaderDialog(context: context);
     });
     Provider.of<ArtistProvider>(context, listen: false)
-        .fetchArtists()
+        .getArtists()
         .then((_) => Navigator.of(context).pop());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<ArtistModel> artistsModel =
-        Provider.of<ArtistProvider>(context, listen: true).artists;
+
+
     return Scaffold(
       appBar: homeAppBar(
         title: 'Artist App',
@@ -53,7 +53,7 @@ class _HomePageChildState extends State<HomePageChild> {
               margin: const EdgeInsets.only(top: 30),
               child: homePageHeadline(
                 title: 'Welcome to Artist App',
-                subtitle: 'State Management with PROVIDER',
+                subtitle: 'PROVIDER',
                 context: context,
               ),
             ),
@@ -61,29 +61,31 @@ class _HomePageChildState extends State<HomePageChild> {
               height: 25,
             ),
             ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: artistsModel.length ?? 0,
-              itemBuilder: (BuildContext context, int index) {
-                final ArtistModel singleArtist = artistsModel[index];
-                return GestureDetector(
-                  onTap: () => Navigator.of(context).push<dynamic>(
-                    SlideAnimationTween(
-                      widget: ArtistDetailPage(
-                        albumUrl: singleArtist.aAlbum,
-                        artistModel: singleArtist,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: context.watch<ArtistProvider>().artists.length ?? 0,
+                itemBuilder: (BuildContext context, int index) {
+                  return Builder(builder: (BuildContext context) {
+                    final ArtistModel singleArtist =
+                        context.select((ArtistProvider p) => p.artists[index]);
+                    return GestureDetector(
+                      onTap: () => Navigator.of(context).push<dynamic>(
+                        SlideAnimationTween(
+                          widget: ArtistDetailPage(
+                            albumUrl: singleArtist.aAlbum,
+                            artistModel: singleArtist,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: artistCard(
-                    image: singleArtist.aImage,
-                    name: singleArtist.aName,
-                    description: singleArtist.aDescription,
-                    context: context,
-                  ),
-                );
-              },
-            ),
+                      child: artistCard(
+                        image: singleArtist.aImage,
+                        name: singleArtist.aName,
+                        description: singleArtist.aDescription,
+                        context: context,
+                      ),
+                    );
+                  });
+                }),
           ],
         ),
       ),

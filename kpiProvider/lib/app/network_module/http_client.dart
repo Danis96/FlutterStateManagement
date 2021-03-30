@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:http/http.dart' as http;
 import 'api_exceptions.dart';
+
 class HTTPClient {
   static final HTTPClient _singleton = HTTPClient();
 
@@ -13,15 +13,17 @@ class HTTPClient {
   final String baseURL = 'https://jsonblob.com/api/jsonBlob/';
 
   Future<dynamic> fetchData(String url, Map<String, String> headersType,
-      {Map<String, String>? params}) async {
+      {Map<String, String> params}) async {
     dynamic responseJson;
 
     final String uri =
         baseURL + url + ((params != null) ? queryParameters(params) : '');
+
     final Uri myUri = Uri.parse(uri);
     print(uri);
     try {
-      final http.Response response = await http.get(myUri, headers: headersType);
+      final http.Response response =
+          await http.get(myUri, headers: headersType);
       print(response.body.toString());
       responseJson = _returnResponse(response);
     } on SocketException {
@@ -44,7 +46,7 @@ class HTTPClient {
       case 200:
         try {
           final dynamic responseJson =
-          json.decode(utf8.decode(response.bodyBytes));
+              json.decode(utf8.decode(response.bodyBytes));
           return responseJson ?? '';
         } catch (e) {
           return;

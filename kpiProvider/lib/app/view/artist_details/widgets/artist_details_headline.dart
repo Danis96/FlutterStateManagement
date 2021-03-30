@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 Widget artistDetailsHeadline({
-  required String image,
-  required String name,
-  required int albumNumber,
-  required BuildContext context,
+  @required String image,
+  @required String name,
+  @required int albumNumber,
+  @required BuildContext context,
 }) {
   return Column(
     children: <Widget>[

@@ -14,15 +14,15 @@ class ArtistDetailPage extends StatelessWidget {
     this.artistModel,
   });
 
-  final String? albumUrl;
-  final ArtistModel? artistModel;
+  final String albumUrl;
+  final ArtistModel artistModel;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ArtistProvider>(
       create: (BuildContext context) => ArtistProvider(),
       child: ArtistDetailsChild(
-        albumUrl: albumUrl!,
+        albumUrl: albumUrl,
         artistModel: artistModel,
       ),
     );
@@ -31,12 +31,12 @@ class ArtistDetailPage extends StatelessWidget {
 
 class ArtistDetailsChild extends StatefulWidget {
   const ArtistDetailsChild({
-    required this.albumUrl,
+    this.albumUrl,
     this.artistModel,
   });
 
   final String albumUrl;
-  final ArtistModel? artistModel;
+  final ArtistModel artistModel;
 
   @override
   _ArtistDetailsChildState createState() => _ArtistDetailsChildState();
@@ -50,7 +50,7 @@ class _ArtistDetailsChildState extends State<ArtistDetailsChild> {
       loaderDialog(context: context);
     });
     Provider.of<ArtistProvider>(context, listen: false)
-        .fetchArtistAlbums(widget.albumUrl)
+        .getAlbums(widget.albumUrl)
         .then(
           (_) => Navigator.of(context).pop(),
         );
@@ -58,8 +58,6 @@ class _ArtistDetailsChildState extends State<ArtistDetailsChild> {
 
   @override
   Widget build(BuildContext context) {
-    final List<ArtistAlbumModel> albumModel =
-        Provider.of<ArtistProvider>(context, listen: true).artistAlbums;
     return Scaffold(
       appBar: detailsAppBar(context),
       body: Padding(
@@ -70,17 +68,18 @@ class _ArtistDetailsChildState extends State<ArtistDetailsChild> {
               height: 10,
             ),
             artistDetailsHeadline(
-              image: widget.artistModel!.aImage,
-              name: widget.artistModel!.aName,
-              albumNumber: albumModel.length ?? 0,
+              image: widget.artistModel.aImage,
+              name: widget.artistModel.aName,
+              albumNumber: context.watch<ArtistProvider>().albums.length ?? 0,
               context: context,
             ),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: albumModel.length ?? 0,
+              itemCount: context.watch<ArtistProvider>().albums.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
-                final ArtistAlbumModel album = albumModel[index];
+                final ArtistAlbumModel album =
+                    context.watch<ArtistProvider>().albums[index];
                 return artistCard(
                   image: album.albumImage,
                   name: album.albumName,

@@ -1,4 +1,4 @@
-# kpiProvider
+# testingAndTheme
 
 A new Flutter project.
 
@@ -6,14 +6,11 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
-Flutter project where I created one small application using Provider state management.
+A few resources to get you started if this is your first Flutter project:
 
-By using provider instead of manually writing InheritedWidget, you get:
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
--simplified allocation/disposal of resources
--lazy-loading
--a largely reduced boilerplate over making a new class every time
--devtools friendly
--a common way to consume these InheritedWidgets (See Provider.of/Consumer/Selector)
--increased scalability for classes with a listening mechanism that grows exponentially in complexity (such as ChangeNotifier, which is O(N²) for dispatching notifications).
-
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

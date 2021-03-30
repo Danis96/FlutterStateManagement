@@ -1,13 +1,15 @@
+
+
 import 'package:kpiProvider/app/models/artist_albums_model.dart';
 import 'package:kpiProvider/app/models/artist_model.dart';
-import 'package:kpiProvider/network_module/api_header.dart';
-import 'package:kpiProvider/network_module/api_path.dart';
-import 'package:kpiProvider/network_module/http_client.dart';
+import 'package:kpiProvider/app/network_module/api_header.dart';
+import 'package:kpiProvider/app/network_module/api_path.dart';
+import 'package:kpiProvider/app/network_module/http_client.dart';
 
 class ArtistRepository {
   Future<List<ArtistModel>> fetchArtists() async {
     final Map<String, String> header =
-    await ApiHeaderHelper.getValue(ApiHeader.appJson);
+        await ApiHeaderHelper.getValue(ApiHeader.appJson);
     final dynamic response = await HTTPClient.instance
         .fetchData(ApiPathHelper.getValue(ApiPath.artists), header);
     final List<ArtistModel> list = <ArtistModel>[];
@@ -17,16 +19,18 @@ class ArtistRepository {
     return list;
   }
 
-  Future<List<ArtistAlbumModel>> fetchArtistAlbums(String artistAlbumPath) async {
+  Future<List<ArtistAlbumModel>> fetchArtistAlbums(
+      String artistAlbumPath) async {
     final Map<String, String> header =
-    await ApiHeaderHelper.getValue(ApiHeader.appJson);
-    final dynamic response = await HTTPClient.instance
-        .fetchData(artistAlbumPath, header);
+        await ApiHeaderHelper.getValue(ApiHeader.appJson);
+    final dynamic response =
+        await HTTPClient.instance.fetchData(artistAlbumPath, header);
     final List<ArtistAlbumModel> list = <ArtistAlbumModel>[];
     print('Response: $response');
     final List<dynamic> responseList = response as List<dynamic>;
-    responseList.map((dynamic e) => list.add(ArtistAlbumModel.fromJson(e))).toList();
+    responseList
+        .map((dynamic e) => list.add(ArtistAlbumModel.fromJson(e)))
+        .toList();
     return list;
   }
-
 }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 Future<void> showMyDialog({
-  required BuildContext context,
-  String? title,
-  String? msg,
-  Color? color,
-  Widget? mainWidget,
-  Widget? action,
-  double? elevation,
-  required bool barrier,
+  BuildContext context,
+  String title,
+  String msg,
+  Color color,
+  Widget mainWidget,
+  Widget action,
+  double elevation,
+  bool barrier,
 }) async {
   return showDialog<void>(
     context: context,
@@ -18,26 +18,26 @@ Future<void> showMyDialog({
       return AlertDialog(
         elevation: 0,
         backgroundColor: color,
-        title: Text(title!),
+        title: Text(title),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
               Container(
-                child: mainWidget,
+                child:  mainWidget,
               )
             ],
           ),
         ),
-        actions: <Widget?>[
+        actions: <Widget>[
           action,
-        ] as List<Widget>?,
+        ],
       );
     },
   );
 }
 
 Future<void> loaderDialog({
-  required BuildContext context,
+  @required BuildContext context,
 }) {
   return showMyDialog(
     context: context,

@@ -5,7 +5,7 @@ part 'artist_model.g.dart';
 @JsonSerializable()
 class ArtistModel {
   ArtistModel({
-    required this.name,
+    this.name,
     this.image,
     this.id,
     this.description,
@@ -17,15 +17,15 @@ class ArtistModel {
   Map<String, dynamic> toJson() => _$ArtistModelToJson(this);
 
   @JsonKey(name: 'id', defaultValue: 0)
-  int? id;
+  int id;
   @JsonKey(name: 'name', defaultValue: '')
-  String/*!*//*!*//*!*//*!*//*!*/ name;
+  String name;
   @JsonKey(name: 'image', defaultValue: '')
-  String? image;
+  String image;
   @JsonKey(name: 'decription', defaultValue: '')
-  String? description;
+  String description;
   @JsonKey(name: 'albums', defaultValue: '')
-  String? albums;
+  String albums;
 
   String get aName => name ?? '';
   String get aAlbum => albums ?? '';

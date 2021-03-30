@@ -8,46 +8,33 @@ class ArtistProvider extends ChangeNotifier {
     _artistRepository = ArtistRepository();
   }
 
-  late ArtistRepository _artistRepository;
+  ArtistRepository _artistRepository;
 
-  List<ArtistModel>? _artists;
+  List<ArtistModel> _artists;
 
   List<ArtistModel> get artists => _artists ?? <ArtistModel>[];
 
-  List<ArtistAlbumModel>? _artistAlbums;
+  List<ArtistAlbumModel> _albums;
 
-  List<ArtistAlbumModel> get artistAlbums =>
-      _artistAlbums ?? <ArtistAlbumModel>[];
+  List<ArtistAlbumModel> get albums => _albums ?? <ArtistAlbumModel>[];
 
-  String? _albumUrl;
-  String? get albumUrl => _albumUrl;
-
-  Future<String?> fetchArtists() async {
-    _artists = <ArtistModel>[];
+  Future<void> getArtists() async {
     try {
+      _artists = <ArtistModel>[];
       _artists = await _artistRepository.fetchArtists();
       notifyListeners();
-      return null;
     } catch (e) {
       print(e);
-      return e.toString();
     }
   }
 
-  Future<String?> fetchArtistAlbums(String albumUrl) async {
-    _artistAlbums = <ArtistAlbumModel>[];
+  Future<void> getAlbums(String artistAlbumPath) async {
     try {
-      _artistAlbums = await _artistRepository.fetchArtistAlbums(albumUrl);
+      _albums = <ArtistAlbumModel>[];
+      _albums = await _artistRepository.fetchArtistAlbums(artistAlbumPath);
       notifyListeners();
-      return null;
     } catch (e) {
       print(e);
-      return e.toString();
     }
-  }
-
-  void setAlbumUrl(String albumUrl) {
-      _albumUrl = albumUrl;
-      notifyListeners();
   }
 }
