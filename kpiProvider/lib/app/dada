@@ -1,0 +1,40 @@
+BAD:
+
+Widget build(BuildContext context) {
+    // counter is used only for the onPressed of RaisedButton
+    final counter = context.read<Counter>();
+
+    return RaisedButton(
+      onPressed: () => counter.increment(),
+    );
+  }
+
+GOOD:
+
+   Widget build(BuildContext context) {
+    return RaisedButton(
+      onPressed: () {
+        // as performing as the previous previous solution, but resilient to refactoring
+        context.read<Counter>().increment(),
+      },
+    );
+  }
+
+
+DON'T use [read] for creating widgets with a value that never changes
+
+Widget build(BuildContext context) {
+  // using read because we only use a value that never changes.
+  final model = context.read<Model>();
+
+  return Text('${model.valueThatNeverChanges}');
+}
+
+CONSIDER using [select] for filtering unwanted rebuilds
+
+Widget build(BuildContext context) {
+  // Using select to listen only to the value that used
+  final valueThatNeverChanges = context.select((Model model) => model.valueThatNeverChanges);
+
+  return Text('$valueThatNeverChanges');
+}
