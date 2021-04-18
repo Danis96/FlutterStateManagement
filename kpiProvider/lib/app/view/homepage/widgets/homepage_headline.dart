@@ -14,9 +14,7 @@ Widget homePageHeadline({
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
-        const SizedBox(
-          height: 5,
-        ),
+        const SizedBox(height: 5),
         Container(
           child: Text(
             subtitle,
