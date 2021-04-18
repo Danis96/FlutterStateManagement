@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kpiRiverpod/app/models/artist_albums_model.dart';
 import 'package:kpiRiverpod/app/repository/artist_repo.dart';
+import 'package:kpiRiverpod/common_widgets/loader.dart';
 
 class AlbumStateNotifier extends StateNotifier<List<ArtistAlbumModel>> {
   AlbumStateNotifier(List<ArtistAlbumModel> state)
@@ -11,10 +12,20 @@ class AlbumStateNotifier extends StateNotifier<List<ArtistAlbumModel>> {
 
   ArtistRepository _artistRepository;
 
-  Future<void> getAlbums({@required String albumUrl}) async {
-    state = await _artistRepository.fetchArtistAlbums(albumUrl);
+  String albumUrl;
+
+  void setAlbumUrl(String url) {
+    albumUrl = url;
   }
 
+  void fetchAlbumsInInit(BuildContext context) {
+    Future<void>(() {
+      loaderDialog(context: context);
+    });
+    getAlbums().then((_) => Navigator.of(context).pop());
+  }
 
-
+  Future<void> getAlbums() async {
+    state = await _artistRepository.fetchArtistAlbums(albumUrl);
+  }
 }
