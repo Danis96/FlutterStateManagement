@@ -5,7 +5,6 @@ import 'package:kpiBloc/app/models/artist_model.dart';
 import 'package:kpiBloc/app/view/artist_details/widgets/artist_details_app_bar.dart';
 import 'package:kpiBloc/app/view/artist_details/widgets/artist_details_headline.dart';
 import 'package:kpiBloc/app/view/homepage/widgets/homepage_artist_card.dart';
-import 'package:kpiBloc/common_widgets/loader.dart';
 
 class ArtistDetails extends StatefulWidget {
   const ArtistDetails({
@@ -26,12 +25,7 @@ class _ArtistDetailsChildState extends State<ArtistDetails> {
   @override
   void initState() {
     super.initState();
-    Future<void>(() {
-      loaderDialog(context: context);
-    });
-    _albumBloc
-        .fetchAllAlbums(widget.albumUrl)
-        .then((_) => Navigator.of(context).pop());
+    _albumBloc.fetchAllAlbumsInInit(context, widget.albumUrl);
   }
 
   @override
@@ -42,9 +36,7 @@ class _ArtistDetailsChildState extends State<ArtistDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
           children: <Widget>[
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             artistDetailsHeadline(
               image: widget.artistModel.aImage,
               name: widget.artistModel.aName,

@@ -6,7 +6,6 @@ import 'package:kpiBloc/app/view/artist_details/page/artist_details_page.dart';
 import 'package:kpiBloc/app/view/homepage/widgets/homepage_app_bar.dart';
 import 'package:kpiBloc/app/view/homepage/widgets/homepage_artist_card.dart';
 import 'package:kpiBloc/app/view/homepage/widgets/homepage_headline.dart';
-import 'package:kpiBloc/common_widgets/loader.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,10 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Future<void>(() {
-      loaderDialog(context: context);
-    });
-    _artistBloc.fetchAllArtist().then((_) => Navigator.of(context).pop());
+    _artistBloc.fetchAllArtistsInInit(context);
     super.initState();
   }
 
@@ -44,9 +40,7 @@ class _HomePageState extends State<HomePage> {
                 context: context,
               ),
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             StreamBuilder<dynamic>(
               stream: _artistBloc.allArtists,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
