@@ -63,9 +63,7 @@ class _ArtistDetailsChildState extends State<ArtistDetailsChild> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
           children: <Widget>[
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             artistDetailsHeadline(
               image: widget.artistModel.aImage,
               name: widget.artistModel.aName,

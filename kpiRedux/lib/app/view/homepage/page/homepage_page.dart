@@ -17,9 +17,7 @@ class Home extends StatelessWidget {
     return StoreConnector<AppState, HomepageProps>(
         converter: (Store<AppState> store) => mapStateToProps(store),
         builder: (BuildContext context, HomepageProps props) {
-          return HomePage(
-            props: props,
-          );
+          return HomePage(props: props);
         });
   }
 }
@@ -45,10 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: homeAppBar(
-        title: 'Artist App',
-        context: context,
-      ),
+      appBar: homeAppBar(title: 'Artist App', context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
@@ -61,31 +56,17 @@ class _HomePageState extends State<HomePage> {
                 context: context,
               ),
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: widget.props.artistResponse.data != null ? widget.props.artistResponse.data.length : 0,
+              itemCount: widget.props.artistResponse.data != null
+                  ? widget.props.artistResponse.data.length
+                  : 0,
               itemBuilder: (BuildContext context, int index) {
-                final ArtistModel singleArtist = widget.props.artistResponse.data[index];
-                return GestureDetector(
-                  onTap: () => Navigator.of(context).push<dynamic>(
-                    SlideAnimationTween(
-                      widget: ArtistDetailPage(
-                        albumUrl: singleArtist.aAlbum,
-                        artistModel: singleArtist,
-                      ),
-                    ),
-                  ),
-                  child: artistCard(
-                    image: singleArtist.aImage,
-                    name: singleArtist.aName,
-                    description: singleArtist.aDescription,
-                    context: context,
-                  ),
-                );
+                final ArtistModel singleArtist =
+                    widget.props.artistResponse.data[index];
+                return _buildList(context, singleArtist);
               },
             ),
           ],
@@ -93,6 +74,25 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Widget _buildList(BuildContext context, ArtistModel singleArtist) {
+  return GestureDetector(
+    onTap: () => Navigator.of(context).push<dynamic>(
+      SlideAnimationTween(
+        widget: ArtistDetailPage(
+          albumUrl: singleArtist.aAlbum,
+          artistModel: singleArtist,
+        ),
+      ),
+    ),
+    child: artistCard(
+      image: singleArtist.aImage,
+      name: singleArtist.aName,
+      description: singleArtist.aDescription,
+      context: context,
+    ),
+  );
 }
 
 class HomepageProps {
