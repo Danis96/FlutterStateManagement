@@ -13,6 +13,7 @@ import 'theme/custom_theme.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   final Store<AppState> store = Store<AppState>(appReducer,
       initialState: AppState.initial(),
       middleware: [thunkMiddleware, apiMiddleware, loggingMiddleware]);

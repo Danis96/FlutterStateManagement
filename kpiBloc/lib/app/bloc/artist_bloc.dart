@@ -29,7 +29,6 @@ class ArtistBloc {
   }
 
   void dispose() {
-     _artistFetch.close();
+    _artistFetch.close();
   }
-
 }

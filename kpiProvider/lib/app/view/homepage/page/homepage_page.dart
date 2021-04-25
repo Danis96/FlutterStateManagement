@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   void initState() {
     context.read<ArtistProvider>().fetchArtistsInInit(context);
@@ -57,8 +58,10 @@ Widget _buildBodyList(BuildContext context) {
 }
 
 Widget _buildArtistList(BuildContext context) {
+
   final ArtistProvider provider =
       Provider.of<ArtistProvider>(context, listen: true);
+
   return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

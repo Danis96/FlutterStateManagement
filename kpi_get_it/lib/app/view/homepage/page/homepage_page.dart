@@ -52,8 +52,7 @@ Widget _buildListBody(BuildContext context) {
 class BuildArtistList extends StatelessWidget with GetItMixin {
   @override
   Widget build(BuildContext context) {
-    final List<ArtistModel> artists =
-        watchOnly((ArtistNotifier x) => x.artists);
+    final List<ArtistModel> artists = watchOnly((ArtistNotifier x) => x.artists);
     final ArtistNotifier notifier = getX((ArtistNotifier x) => x);
     return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),

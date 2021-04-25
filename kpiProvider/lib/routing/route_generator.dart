@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+
       case ArtistDetails:
         return SlideAnimationTween(
           widget: ChangeNotifierProvider<ArtistProvider>.value(

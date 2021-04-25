@@ -6,6 +6,7 @@ enum CardType {
   album,
 }
 
+
 Widget artistCard({
   @required String image,
   @required String name,

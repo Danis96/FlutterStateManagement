@@ -4,6 +4,8 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:redux_api_middleware/redux_api_middleware.dart';
 
+const String baseURL = 'https://jsonblob.com/api/jsonBlob/';
+
 const String LIST_ARTIST_REQUEST = 'LIST_ARTIST_REQUEST';
 const String LIST_ARTIST_SUCCESS = 'LIST_ARTIST_SUCCESS';
 const String LIST_ARTIST_FAILURE = 'LIST_ARTIST_FAILURE';
@@ -16,7 +18,7 @@ RSAA getArtistsRequest() {
   return RSAA(
       method: 'GET',
       endpoint:
-          'https://jsonblob.com/api/jsonBlob/f30a2517-60b4-11eb-a1e4-475264cf2bca',
+          '$baseURL/f30a2517-60b4-11eb-a1e4-475264cf2bca',
       types: <String>[
         LIST_ARTIST_REQUEST,
         LIST_ARTIST_SUCCESS,
@@ -33,7 +35,7 @@ ThunkAction<AppState> getArtists() =>
 RSAA getArtistAlbumRequest({@required String albumUrl}) {
   return RSAA(
       method: 'GET',
-      endpoint: 'https://jsonblob.com/api/jsonBlob/$albumUrl',
+      endpoint: '$baseURL$albumUrl',
       types: <String>[
         LIST_ALBUM_REQUEST,
         LIST_ALBUM_SUCCESS,
@@ -43,6 +45,5 @@ RSAA getArtistAlbumRequest({@required String albumUrl}) {
         'Content-Type': 'application/json',
       });
 }
-
 ThunkAction<AppState> getAlbums(String albumUrl) => (Store<AppState> store) =>
     store.dispatch(getArtistAlbumRequest(albumUrl: albumUrl));
